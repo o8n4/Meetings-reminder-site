@@ -1,0 +1,46 @@
+
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>تذكير المواعيد</title>
+    <style>
+        body { font-family: 'Tahoma', sans-serif; direction: rtl; background: #f9f9f9; padding: 30px; }
+        h1 { color: #333; }
+        form, .reminder { background: #fff; padding: 20px; margin-top: 20px; border-radius: 8px; box-shadow: 0 0 5px rgba(0,0,0,0.1); }
+        input, select { padding: 10px; width: 100%; margin-top: 10px; }
+        button { padding: 10px 20px; margin-top: 10px; background: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>إضافة تذكير جديد</h1>
+    <form action="/add" method="post">
+        <label>الرسالة:</label>
+        <input type="text" name="message" required>
+
+        <label>التاريخ:</label>
+        <input type="date" name="date" required>
+
+        <label>الوقت:</label>
+        <input type="time" name="time" required>
+
+        <label>التكرار:</label>
+        <select name="repeat">
+            <option value="once">بدون تكرار</option>
+            <option value="daily">يومي</option>
+            <option value="weekly">أسبوعي</option>
+        </select>
+
+        <button type="submit">إضافة</button>
+    </form>
+
+    <h2>التذكيرات</h2>
+    {% for r in reminders %}
+        <div class="reminder">
+            <p><strong>الرسالة:</strong> {{ r.message }}</p>
+            <p><strong>التاريخ والوقت:</strong> {{ r.datetime }}</p>
+            <p><strong>التكرار:</strong> {{ r.repeat }}</p>
+        </div>
+    {% endfor %}
+</body>
+</html>
